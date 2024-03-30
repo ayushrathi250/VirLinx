@@ -20,7 +20,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='app',
+    name='Virlinx',
     debug=True,
     bootloader_ignore_signals=False,
     strip=False,

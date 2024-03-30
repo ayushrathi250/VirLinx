@@ -1,11 +1,10 @@
 import cv2
-
+import random
 from static.Functions import movemouse as mvmouse, updown, zooming
 
-import pyautogui as pai
 import mediapipe as mp
 
-from flask import Flask, Response, render_template
+from flask import Flask, Response, render_template, redirect, url_for
 
 app = Flask(__name__)
 
@@ -31,9 +30,21 @@ def gen_frames():
             if results.multi_hand_landmarks:
                 for hand_landmarks in results.multi_hand_landmarks:
                     mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-            mvmouse.movemouse(results)
+                    landmark = results.multi_hand_landmarks[0].landmark
+
+                    index_fing_x = landmark[8].x
+                    thumb_fing_x = landmark[4].x
+
+                    # if(thumb_fing_x > index_fing_x):
+                    #     updown.updn(results, frame)
+                    
+                    
+                    
+
+            # mvmouse.movemouse(results)
+            
             # updown.updn(results, frame)
-            zooming.zoom(results)
+            # zooming.zoom(results)
                     
             frame = cv2.resize(frame, (0, 0), fx=1.7, fy=2.1)
             
@@ -57,6 +68,13 @@ def index():
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+from flask import Flask
+import os, signal
+
+@app.route('/stopServer')
+def stopServer():
+    os.kill(os.getpid(), signal.SIGINT)
+    
 
 
 if __name__ == '__main__':
