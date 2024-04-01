@@ -1,76 +1,52 @@
 import cv2
 import mediapipe as mp
-import pyautogui
 
-# Initialize MediaPipe Hands
-mp_hands = mp.solutions.hands
-hands = mp_hands.Hands()
 mp_drawing = mp.solutions.drawing_utils
-zoom_factor = 0.45
-prev_y = 0
-# Open webcam
-initial_distance = 0
+mp_hands = mp.solutions.hands
+
+# Initialize MediaPipe Hand model
+hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.5)
+
 cap = cv2.VideoCapture(0)
 
-while True:
+while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
         break
+
+    # Flip the image horizontally for a selfie-view display
     frame = cv2.flip(frame, 1)
-    # Convert the image to RGB
-    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    
-    # Process the image with MediaPipe Hands
-    results = hands.process(frame_rgb)
-    
-    # if results.multi_hand_landmarks:
-    #     for hand_landmarks in results.multi_hand_landmarks:
-    #         # Draw landmarks and connections on the hand
-    #         mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-    #         handdata = results.multi_handedness[results.multi_hand_landmarks.index(hand_landmarks)].classification
-    #         handedness =   handdata[0].label
-    #         # print(results.multi_handedness[results.multi_hand_landmarks.index(hand_landmarks)])
+    # Convert the BGR image to RGB
+    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-    #         if()
- 
-    if results.multi_hand_landmarks:  # agar hands detect hue to
-        for landmarks in results.multi_hand_landmarks:
-            # hand check krne ko
-            mp_drawing.draw_landmarks(frame, landmarks, mp_hands.HAND_CONNECTIONS)
+    # Process the frame to detect hands
+    results = hands.process(rgb_frame)
 
-            handindex = results.multi_hand_landmarks.index(landmarks)
+    if results.multi_hand_landmarks:
+        for hand_landmarks in results.multi_hand_landmarks:
+            # Extract landmarks of interest
+            thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
+            index_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
+            middle_tip = hand_landmarks.landmark[20]
 
-            handdata = results.multi_handedness[handindex].classification
-            handedness = handdata[0].label
+            # Calculate distances
+            dist_thumb_index = ((thumb_tip.x - index_tip.x)**2 + (thumb_tip.y - index_tip.y)**2)**0.5
+            dist_thumb_middle = ((thumb_tip.x - middle_tip.x)**2 + (thumb_tip.y - middle_tip.y)**2)**0.5
 
-            landmarkde = results.multi_hand_landmarks
-            if(len(landmarkde) == 2):
-                leftindex = landmarkde[0].landmark
-                rightindex = landmarkde[1].landmark
-                # distance = ((landmark[4].x - landmark[8].x)**2 + (landmark[4].y - landmark[8].y)**2)**0.3
+            # Set a threshold for pressing
+            threshold_distance = 0.05  # Adjust as needed
 
-                distance = ((leftindex[8].x - rightindex[8].x)**2 + (leftindex[8].y - rightindex[8].y)**2)**0.3
+            # Determine which finger the thumb is pressed against
+            if dist_thumb_index < threshold_distance:
+                cv2.putText(frame, 'Thumb pressed against index', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            elif dist_thumb_middle < threshold_distance:
+                cv2.putText(frame, 'Thumb pressed against middle', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
-                if initial_distance == 0:
-                    initial_distance = distance
-
-                zoom_factor = distance / initial_distance
-
-                if zoom_factor > 1.1:
-                    # pyautogui.hotkey('ctrl', '+')
-                    print("zoom up")
-                elif zoom_factor < 0.9:
-                    # pyautogui.hotkey('ctrl', '-') 
-                    print("zoom down")
-
-
-    # return frame_rgb
     cv2.imshow('Hand Tracking', frame)
-        
-    
-    if cv2.waitKey(1) == ord('q'):
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# Release the webcam and close all windows
+hands.close()
 cap.release()
 cv2.destroyAllWindows()

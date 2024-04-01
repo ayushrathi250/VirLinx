@@ -1,5 +1,5 @@
 import pyautogui
-
+import time
 
 def updn(results, frame):  
     prev_y = pyautogui.position()[1]
@@ -33,17 +33,15 @@ def updn(results, frame):
                     lm_list.append((lm.x, lm.y))
                 
                 thumb_tip = lm_list[4]
-                index_tip = lm_list[8]
+                indexd_tip = lm_list[8]
+                middled_tip = lm_list[12]
+                threshold_val = 0.05
                 
-                
-                # Check if thumb is above the index finger
-                if thumb_tip[1] < index_tip[1]:
-                    # Perform swipe up action
+                dist_th_ind = ((thumb_tip[0] - indexd_tip[0])**2 + (thumb_tip[1] - indexd_tip[1])**2)**0.5
+                dist_th_inp = ((thumb_tip[0] - middled_tip[0])**2 + (thumb_tip[1] - middled_tip[1])**2)**0.5
+                if dist_th_ind < threshold_val:
                     pyautogui.press('up')
-                else:
+                    # break
+                elif dist_th_inp < threshold_val:
                     pyautogui.press('down')
-            # elif ptip[1]:
-            #     pyautogui.press("down")
-            # elif thumb_tip[1] < index_tip[1]:
-            #     pyautogui.press("a")
-            #     print("stop")
+                    # break
