@@ -1,5 +1,3 @@
-# VirLinx
-
 # Controlling PC via Hand Gestures using Virlinx, OpenCV, and MediaPipe
 
 ## Introduction
