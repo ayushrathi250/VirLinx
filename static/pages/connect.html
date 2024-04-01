@@ -20,19 +20,19 @@
         </div>
     </div> -->
 
-    <div id="play" class="content" style="display: block; justify-content: center;"></div>>
+    <div id="play" class="vidcontainer" style="display: block; justify-content: center;"></div>>
         <div style="display: flex; width: 100%; align-self: center; justify-content: space-evenly;">
             <div>
                 <!-- style="border-radius: 50px; width: 100%; border: 5px dashed rgba(128, 128, 128, 0.356); background-color: #fff; object-fit: cover;"> -->
                 <iframe id="vid" frameborder="0" style="border-radius: 50px; width: 200%; height: 150%; border: 2px dashed rgba(128, 128, 128, 0.5); background-color: #fff; object-fit: cover;"></iframe>
             </div>
             <div style="width: 40%; height: 375px; justify-content: center;">
-                <div class="vidButtons" id="startVid">Open WebCam</div>
-                <div class="vidButtons" id="stopVid">Close WebCam</div>
+                <div class="vidButtons" id="startVid" onclick="document.getElementById('vid').src = '/video_feed'">Open WebCam</div>
+                <div class="vidButtons" id="stopVid" onclick="document.getElementById('vid').src = ''">Close WebCam</div>
             </div>
         </div>
     </div>
 </body>
 
-,<script src="/static/scripts/scripts.js"></script>
+
 </html> .
