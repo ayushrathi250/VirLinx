@@ -1,0 +1,8 @@
+.vscode
+.git
+build
+dist
+__pycache__
+./static/scripts/pagechange.js
+video_capture.py
+float.py

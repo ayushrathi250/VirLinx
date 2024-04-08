@@ -1,0 +1,202 @@
+/* UTILS */
+.centered {
+    justify-content: center;
+    align-items: center;
+}
+
+.fullwidth {
+    height: 100vh;
+    width: 100vw;
+}
+
+.flex {
+    display: flex;
+}
+
+.newStyle {
+    border-right: 0px;
+    background-color: white;
+    color: #13577e;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+/* BODY CSS */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #BFD7FF;
+
+}
+
+.sidebar {
+    background-color: #13577e;
+    border: 2px solid black;
+    border-right: 0px;
+    border-radius: 50px 0px 0px 50px;
+    height: 70vh;
+    width: 30vh;
+}
+
+.button {
+    background-color: #13577e;
+    height: 10vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transition: 0.3s;
+    font-size: 18px;
+    color: white;
+    border-right: 2px;
+    border-right: 2px solid black;
+}
+
+@keyframes textGrow {
+    from {
+        font-size: 18px;
+        /* Initial font size */
+    }
+
+    to {
+        font-size: 20px;
+        /* Final font size */
+    }
+}
+
+.button_clicked {
+    animation: textGrow 0.1s linear forwards;
+    font-weight: bolder;
+    border-right: 0px;
+    background-color: #ffffff;
+    height: 10vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 20px;
+    color: #13577e;
+
+}
+
+/* 
+.sidebar div:hover {
+    background-color: #555;
+} */
+
+.content {
+    border: 2px solid black;
+    background-color: #ffffff;
+    border-left: 0px;
+    border-radius: 0px 50px 50px 0px;
+    padding-left: 40px;
+    height: 70vh;
+    width: 100vh;
+}
+
+.w1 {
+    border-radius: 50px 0px 0px 0px;
+
+}
+
+.window {
+    display: none;
+}
+
+.window0 {
+    display: block;
+}
+
+.window.active {
+    display: block;
+}
+
+#video {
+    align-items: center;
+    justify-items: center;
+    width: 80%;
+    height: 40vh;
+    background-color: black;
+    border: 2px dashed #ffffff;
+    border-radius: 20px;
+}
+
+#vid {
+    height: 40vh;
+    max-width: 100%;
+}
+
+#video.window.active {
+    border: 2px solid white;
+}
+
+.vid_buttons {
+    height: 5vh;
+    width: 15vw;
+    padding-right: 15px;
+    ;
+    background-color: #BFD7FF;
+    border-radius: 20px;
+}
+
+.but_cont {
+    width: 50%;
+    padding-top: 15px;
+    gap: 10px;
+}
+
+.info {
+    gap: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+}
+
+#window3 {
+    overflow-y: auto;
+    max-height: 70vh;
+}
+
+#window3::-webkit-scrollbar {
+    width: 0;
+    /* Remove scrollbar width */
+    background-color: transparent;
+    /* Set background color to transparent */
+}
+
+.card {
+    margin-top: 15px;
+    padding: 15px;
+    width: 70vh;
+    margin: 20px;
+    border-radius: 5vh;
+    border: 5px solid rgba(202, 202, 202, 0.678);
+    background-color: #ffffff;
+}
+
+.card_img {
+    width: 15vw;
+    border: 2px solid black;
+    border-radius: 50vh;
+}
+
+.card_details {
+    height: 20vh;
+    width: 35vh;
+    padding: 15px;
+}
+
+.card_socials{
+    height: 4vh;
+}
+
+#window4{
+    overflow-y: auto;
+    max-height: 70vh;
+}
+
+#window4::-webkit-scrollbar {
+    width: 0;
+    /* Remove scrollbar width */
+    background-color: transparent;
+    /* Set background color to transparent */
+}

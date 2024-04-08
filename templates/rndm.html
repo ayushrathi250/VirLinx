@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virlinx</title>
+    <link rel="stylesheet" href="/static/css/rndm.css">
+    <style>
+        /* Add your styles here or link an external CSS file */
+        .active {
+            display: block;
+        }
+
+        .window {
+            display: none;
+        }
+
+        .button_clicked {
+            background-color: white;
+            color: #13577e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex centered fullwidth">
+        <div id="sidebar" class="sidebar">
+            <div class="button w1" onclick="myFunc('window0', this)">Home</div>
+            <div class="button" onclick="myFunc('window2', this)">Connect</div>
+            <div class="button" onclick="myFunc('window3', this)">Info</div>
+            <div class="button" onclick="myFunc('window4', this)">Developers</div>
+            <div class="button" onclick="myFunc('window5', this)">FAQ's</div>
+        </div>
+
+        <div class="content">
+            <div class="window" id="window0" data-bg-color="#13577e">
+                <h2>WELCOME TO VIRLINX</h2>
+            </div>
+
+            <div class="window" id="window1" data-bg-color="#13577e">
+                <h2>Window 1 Content</h2>
+            </div>
+
+            <div class="window" id="window2" data-bg-color="#13577e">
+                <h2>Connect The Links....</h2>
+                <div class="flex centered" id="video">
+                    <img id="vid"></img>
+                </div>
+                <div class="but_cont flex">
+                    <div class="vid_buttons centered flex" id="startVid">Start Video</div>
+                    <div class="vid_buttons centered flex" id="stopVid">Stop Video</div>
+                </div>
+            </div>
+
+            <div class="window" id="window3" data-bg-color="#13577e">
+                <div class="info">
+                    <h2 class="c_head">Connecting the Surroundings</h2>
+                    <p class="c_body">VirLinx creates simulates a connected ecosystem which now enables the lecturers to
+                        move freely while delivering </p>
+                    <h2 class="c_head">Linking The machines</h2>
+                    <p class="c_body">Virlinx links the machines in a radius and creates an ecosystem, resulting into an
+                        efficient workplace.</p>
+                    <h2 class="c_head">Connecting the Surroundings</h2>
+                    <p class="c_body">VirLinx creates simulates a connected ecosystem which now enables the lecturers to
+                        move freely while delivering </p>
+                    <h2 class="c_head">Linking The machines</h2>
+                    <p class="c_body">Virlinx links the machines in a radius and creates an ecosystem, resulting into an
+                        efficient workplace.</p>
+                    <h2 class="c_head">Connecting the Surroundings</h2>
+                    <p class="c_body">VirLinx creates simulates a connected ecosystem which now enables the lecturers to
+                        move freely while delivering </p>
+                    <h2 class="c_head">Linking The machines</h2>
+                    <p class="c_body">Virlinx links the machines in a radius and creates an ecosystem, resulting into an
+                        efficient workplace.</p>
+                </div>
+            </div>
+
+            <div class="window" id="window4" data-bg-color="#13577e" style="scrollbar-width: none;">
+                <div class="card flex">
+                    <a href="https://www.linkedin.com/in/ayush-rathi-574690273/" target="_blank">
+                        <img class="card_img" src="/static/images/avatar.png" alt="">
+                    </a>
+                    <div class="card_details centered">
+                        <h2>Ayush Rathi</h2>
+                        <h4>Gesture DataSet</h4>
+                        <div class="socials">
+                            <a href="https://www.linkedin.com/in/ayush-rathi-574690273/">
+                                <img class="card_socials" src="/static/images/linkedin.png" alt="">
+                            </a>
+                            <a href="https://github.com/prxm73">
+                                <img class="card_socials" src="/static/images/github-sign.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card flex">
+                    <a href="https://www.linkedin.com/in/vishwesh-patil-b290b9267/" target="_blank">
+                        <img class="card_img" src="/static/images/avatar.png" alt="">
+                    </a>
+                    <div class="card_details centered">
+                        <h2>Vishwesh Patil</h2>
+                        <h4>Gesture DataSet,<br>Web assembly</h4>
+                        <div class="socials">
+                            <a href="https://www.linkedin.com/in/vishwesh-patil-b290b9267/">
+                                <img class="card_socials" src="/static/images/linkedin.png" alt="">
+                            </a>
+                            <a href="https://github.com/vishwesh-04">
+                                <img class="card_socials" src="/static/images/github-sign.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card flex">
+                    <a href="https://www.linkedin.com/in/prem-rahinj-88216a258/" target="_blank">
+                        <img class="card_img" src="/static/images/prem.jpg" alt="">
+                    </a>
+                    <div class="card_details centered">
+                        <h2>Prem Rahinj</h2>
+                        <h4>UI<br>Web assembly</h4>
+                        <div class="socials">
+                            <a href="https://www.linkedin.com/in/prem-rahinj-88216a258/">
+                                <img class="card_socials" src="/static/images/linkedin.png" alt="">
+                            </a>
+                            <a href="https://github.com/prxm73">
+                                <img class="card_socials" src="/static/images/github-sign.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card flex">
+                    <a href="https://www.linkedin.com/in/ayush-matkar-344ba8259/" target="_blank">
+                        <img class="card_img" src="/static/images/matkar.jpg" alt="">
+                    </a>
+                    <div class="card_details centered">
+                        <h2>Ayush Matkar</h2>
+                        <h4>Gesture DataSet,<br>Web assembly</h4>
+                        <div class="socials">
+                            <a href="https://www.linkedin.com/in/ayush-matkar-344ba8259/">
+                                <img class="card_socials" src="/static/images/linkedin.png" alt="">
+                            </a>
+                            <a href="https://github.com/vishwesh-04">
+                                <img class="card_socials" src="/static/images/github-sign.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="window" id="window5" data-bg-color="#13577e">
+        </div>
+    </div>
+    </div>
+
+    <script src="/static/scripts/rndm.js">
+    </script>
+
+</body>
+
+</html>
