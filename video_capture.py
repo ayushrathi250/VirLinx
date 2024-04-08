@@ -1,52 +1,70 @@
 import cv2
 import mediapipe as mp
+import numpy as np
 
-mp_drawing = mp.solutions.drawing_utils
-mp_hands = mp.solutions.hands
+class DrawingCanvas:
+    def __init__(self, width, height):
+        self.canvas = np.ones((height, width, 3), dtype=np.uint8) * 255 # White canvas
+        self.drawing = False
+        self.last_point = None
 
-# Initialize MediaPipe Hand model
-hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.5)
+    def clear_canvas(self):
+        self.canvas.fill(255)  # Reset canvas to white
 
-cap = cv2.VideoCapture(0)
+    def save_canvas(self, filename):
+        cv2.imwrite(filename, self.canvas)
 
-while cap.isOpened():
-    ret, frame = cap.read()
-    if not ret:
-        break
+    def draw_on_canvas(self, point):
+        if self.last_point is not None:
+            cv2.line(self.canvas, self.last_point, point, (0, 255, 0), thickness=5)
+        self.last_point = point
 
-    # Flip the image horizontally for a selfie-view display
-    frame = cv2.flip(frame, 1)
-    # Convert the BGR image to RGB
-    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    def reset_last_point(self):
+        self.last_point = None
 
-    # Process the frame to detect hands
-    results = hands.process(rgb_frame)
+def main():
+    prev_x, prev_y = None, None
+    # canvas = DrawingCanvas(width, height)
+    cap = cv2.VideoCapture(0)
 
-    if results.multi_hand_landmarks:
-        for hand_landmarks in results.multi_hand_landmarks:
-            # Extract landmarks of interest
-            thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
-            index_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
-            middle_tip = hand_landmarks.landmark[20]
+    mp_hands = mp.solutions.hands
+    hands = mp_hands.Hands(static_image_mode=False, max_num_hands=1, min_detection_confidence=0.5)
 
-            # Calculate distances
-            dist_thumb_index = ((thumb_tip.x - index_tip.x)**2 + (thumb_tip.y - index_tip.y)**2)**0.5
-            dist_thumb_middle = ((thumb_tip.x - middle_tip.x)**2 + (thumb_tip.y - middle_tip.y)**2)**0.5
+    while True:
+        # Check for keyboard input
+        
 
-            # Set a threshold for pressing
-            threshold_distance = 0.05  # Adjust as needed
+        # Process hand landmarks
+        ret, frame = cap.read()
 
-            # Determine which finger the thumb is pressed against
-            if dist_thumb_index < threshold_distance:
-                cv2.putText(frame, 'Thumb pressed against index', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            elif dist_thumb_middle < threshold_distance:
-                cv2.putText(frame, 'Thumb pressed against middle', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        frame = cv2.flip(frame, 1)
+        canvas = frame.copy()
+        width, height, _ = frame.shape
+        processed_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        results = hands.process(processed_frame)
+        if results.multi_hand_landmarks:
+            for hand_landmarks in results.multi_hand_landmarks:
+                mp.solutions.drawing_utils.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                index_tip = hand_landmarks.landmark[8]
 
-    cv2.imshow('Hand Tracking', frame)
+                x, y = int(index_tip.x * width), int(index_tip.y * height)
+                if(prev_x == None and prev_y == None):
+                    prev_x = x
+                    prev_y = y
+                frame = cv2.line(canvas,pt1=(prev_x, prev_y), pt2=(x, y), color=(0, 255, 0), thickness=5)
+                
+            
+            prev_x = x
+            prev_y = y
+                
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+        cv2.imshow('Canvas', frame)
 
-hands.close()
-cap.release()
-cv2.destroyAllWindows()
+        key = cv2.waitKey(1) & 0xFF
+        if key == ord('q'):
+            break
+
+    cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    main()

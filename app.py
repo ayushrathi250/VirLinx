@@ -1,7 +1,7 @@
 import cv2
 
 import os, signal
-from static.Functions import movemouse as mvmouse, updown, zooming
+from static.Functions import Mouse, Scroll, zooming, leftright
 
 import mediapipe as mp
 
@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 def gen_frames():
     # Open the webcam
+    
     cap = cv2.VideoCapture(0)
     mp_hands = mp.solutions.hands
     hands = mp_hands.Hands()
@@ -24,6 +25,8 @@ def gen_frames():
                 break
             
             frame = cv2.flip(frame, 1)
+            # frame_width, frame_height, _ = frame.shape
+            # print(frame.shape)
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             
             results = hands.process(frame_rgb)
@@ -31,14 +34,19 @@ def gen_frames():
             if results.multi_hand_landmarks:
                 for hand_landmarks in results.multi_hand_landmarks:
                     mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                    handedness =   results.multi_handedness[results.multi_hand_landmarks.index(hand_landmarks)].classification[0].label
+                    if handedness == "Left":
+                        Mouse.movemouse(hand_landmarks)
+
+                    if handedness == "Right":
+                        leftright.leftnright(hand_landmarks)
+                        Scroll.scrolling(hand_landmarks)
                     
-            updown.updn(results, frame)
     
-            mvmouse.movemouse(results)
             
-            zooming.zoom(results)
+            # zooming.zoom(results)
                     
-            frame = cv2.resize(frame, (0, 0), fx=1.7, fy=2.1)
+            # frame = cv2.resize(frame, (0, 0), fx=1.7, fy=2.1)
             
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
@@ -53,7 +61,7 @@ def gen_frames():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('rndm.html')
 
 
 @app.route('/video_feed')

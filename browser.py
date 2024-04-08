@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtCore import QUrl, Qt
+from PyQt6.QtCore import QUrl, QThread
 from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 import multiprocessing
@@ -11,7 +11,7 @@ class BrowserWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("VirLinx")
         self.setGeometry(100, 100, 1280, 1024)
-        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        # self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
         self.browser = QWebEngineView()
         self.browser.setUrl(QUrl("http://127.0.0.1:5000"))
@@ -23,25 +23,13 @@ class BrowserWindow(QMainWindow):
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
 
-    def showEvent(self, event):
-        # flask_process.start()
-        pass
-
-    def closeEvent(self, event):
-        # Stop Flask server by terminating the process
-        # app2.running = False
-        # flask_process.terminate()
-        # flask_process.join()
-        pass
-        # event.accept()
-
-
-
-
-
+class FlaskThread(QThread):
+    def run(self):
+        start_flask()
 
 def start_flask():
     app2.app.run(host="127.0.0.1", port=5000, debug=True)
+
 
 def run_gui():
     app = QApplication(sys.argv)
@@ -51,8 +39,7 @@ def run_gui():
 
 if __name__ == "__main__":
     # Check if Flask server is already running
-    # flask_process = threading.Thread(target=start_flask)
-    # flask_process.start()
+    FlaskThread().start()
 
-    # Run GUI in the main process
     run_gui()
+    
