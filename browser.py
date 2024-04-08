@@ -39,7 +39,7 @@ def run_gui():
 
 if __name__ == "__main__":
     # Check if Flask server is already running
-    FlaskThread().start()
+    
 
     run_gui()
     
