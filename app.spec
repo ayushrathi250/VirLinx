@@ -1,11 +1,11 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 a = Analysis(
-    ['app.py'],
+    ['browser.py'],
     pathex=['./'],
     binaries=[],
-    datas=[('./templates', 'templates'), ('./static', 'static'), ('./../gesturectrl/lib/python3.11/site-packages/mediapipe','mediapipe')],
-    hiddenimports=['flask', 'flask-response', 'cv2', 'mediapipe','pickle', 'struct'],
+    datas=[('./templates', 'templates'), ('./static', 'static'), ('./../gesturectrl/lib/python3.11/site-packages/mediapipe','mediapipe'), ('./app.py', 'app.py')],
+    hiddenimports=['flask', 'flask-response', 'cv2', 'mediapipe','pickle', 'struct', 'pyautogui', 'pynput'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
