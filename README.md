@@ -36,11 +36,11 @@ This project demonstrates how to control a PC using hand gestures detected throu
 
 ## Supported Gestures
 
-- **Swipe Left**: Move to the previous slide (if presenting).
-- **Swipe Right**: Move to the next slide (if presenting).
-- **Swipe Up**: Move PDF up.
-- **Swipe Down**: Move PDF down.
-- **Two finger zoom**: Zooming PDF and PPTs.
+- **Tap Left side of screen**: Move to the previous slide (if presenting).
+- **Tap Right side of screen**: Move to the next slide (if presenting).
+- **Two finger swipe Up**: Move PDF up.
+- **two finger swipe Down**: Move PDF down.
+- **Two finger zoom and panning**: Zooming PDF and PPTs.
 
 ## Conclusion
 

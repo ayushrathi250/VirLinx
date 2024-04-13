@@ -1,25 +1,54 @@
 from pynput.keyboard import Controller, Key
 import time
+import random
+from pyautogui import size
 
 keyboard = Controller()
 
-prev_x = None
+width, height = size()
+
+prev_z = None
 
 
 def leftnright(hand_landmarks):
-    global prev_x
+    global prev_z, width
     
 
     if hand_landmarks:
         index_tip = hand_landmarks.landmark[8]
-        if prev_x == None:
-            prev_x = index_tip.x
+        middle_tip = hand_landmarks.landmark[12]
+        thumb_tip = hand_landmarks.landmark[4]
+        indexb = hand_landmarks.landmark[5]
 
-        distance = index_tip.x - prev_x
-        if distance > 0:
-            keyboard.tap(Key.right)
-            
+        
+        
+        # if prev_z == None:
+        #     prev_z = index_tip.z
 
-        elif distance < 0 :
-            keyboard.tap(Key.left)
+        # distance = index_tip.z - prev_z
+        diff = middle_tip.y - index_tip.y
+
+        # print(distance)
+        # if diff > 0.4:
+        #     if 0.007 < distance < 0.01:
+        #         if index_tip.x * width > (width / 2):
+        #             keyboard.tap(Key.right)
+
+        #         if index_tip.x * width < (width / 2):
+        #             keyboard.tap(Key.left)
+        
+        # prev_z = index_tip.z
+
+        dist_thum_indexd = ((indexb.x - thumb_tip.x)**2 + (indexb.y - thumb_tip.y)**2)**0.5
+
+
+        # print(dist_thum_indexd)
+        if diff > 0.4:
+            if 0.083 < dist_thum_indexd < 0.093:
+                if index_tip.x * width > (width / 2):
+                    keyboard.tap(Key.right)
+
+                if index_tip.x * width < (width / 2):
+                    keyboard.tap(Key.left)
+
 

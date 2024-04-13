@@ -4,5 +4,6 @@ build
 dist
 __pycache__
 ./static/scripts/pagechange.js
-video_capture.py
-float.py
+./video_capture.py
+./float.py
+./static/images/neon.ai
