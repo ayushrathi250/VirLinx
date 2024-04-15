@@ -24,7 +24,7 @@ def gen_frames():
             if not ret:
                 break
             
-            frame = cv2.flip(frame, 1)
+            # frame = cv2.flip(frame, 1)
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             
             results = hands.process(frame_rgb)
@@ -42,7 +42,7 @@ def gen_frames():
                             Mouse.movemouse(hand_landmarks)
 
                         if handedness == "Right":
-                            leftright.leftnright(hand_landmarks)
+                            leftright.leftnright(hand_landmarks, fwidth)
                             Scroll.scrolling(hand_landmarks, fwidth, fheight)
 
                     elif(len(handsnum) == 2):
@@ -50,7 +50,7 @@ def gen_frames():
                         # print("Hello")
                     
                     
-            # frame = cv2.resize(frame, (0, 0), fx=1.7, fy=2.1)
+            frame = cv2.resize(frame, (0, 0), fx=1.7, fy=2.1)
             
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
@@ -80,6 +80,6 @@ def stopServer():
     
 
 
-# if __name__ == '__main__':
-#     app.run(host="127.0.0.1", port=5000, debug=True)
+if __name__ == '__main__':
+    app.run(host="127.0.0.1", port=5000, debug=True)
     

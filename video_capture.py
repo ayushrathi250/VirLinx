@@ -1,23 +1,27 @@
-import sys
-from PyQt6.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget
-import pyautogui
+import cv2 as cv
+cam = cv.VideoCapture(0)
+cc = cv.VideoWriter_fourcc(*'XVID')
+file = cv.VideoWriter('output.avi', cc, 15.0, (640, 480))
+if not cam.isOpened():
+   print("error opening camera")
+   exit()
+while True:
+   # Capture frame-by-frame
+   ret, frame = cam.read()
 
-class MainWindow(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Media Control")
-        layout = QVBoxLayout()
-        self.button_play_pause = QPushButton("Play/Pause")
-        self.button_play_pause.clicked.connect(self.play_pause)
-        layout.addWidget(self.button_play_pause)
-        self.setLayout(layout)
+   frame = cv.flip(frame, 1)
+   # if frame is read correctly ret is True
+   if not ret:
+      print("error in retrieving frame")
+      break
+   img = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+   cv.imshow('frame', img)
+   file.write(img)
 
-    def play_pause(self):
-        # Simulate media play/pause keyboard shortcut
-        pyautogui.hotkey('shift', 'f5')
+   
+   if cv.waitKey(1) == ord('q'):
+      break
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec())
+cam.release()
+file.release()
+cv.destroyAllWindows()

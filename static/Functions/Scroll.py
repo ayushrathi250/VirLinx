@@ -37,9 +37,9 @@ def scrolling(hand_landmarks, fwidth, fheight):
         if -0.04 < diff < 0.04:
             if middle_tip.y * fheight < fheight / 2:
                 mouse.scroll(0, 1)
-                print("up")
+                # print("up")
             elif middle_tip.y * fheight > fheight / 2:
                 mouse.scroll(0, -1)
-                print("down")
+                # print("down")
 
         

@@ -10,7 +10,7 @@ width, height = size()
 prev_z = None
 
 
-def leftnright(hand_landmarks):
+def leftnright(hand_landmarks, fwidth):
     global prev_z, width
     
 
@@ -30,7 +30,7 @@ def leftnright(hand_landmarks):
 
         # print(distance)
         # if diff > 0.4:
-        #     if 0.007 < distance < 0.01:
+        #     if 0.0035 < distance < 0.0047:
         #         if index_tip.x * width > (width / 2):
         #             keyboard.tap(Key.right)
 
@@ -42,9 +42,9 @@ def leftnright(hand_landmarks):
         dist_thum_indexd = ((indexb.x - thumb_tip.x)**2 + (indexb.y - thumb_tip.y)**2)**0.5
 
 
-        # print(dist_thum_indexd)
+        print(dist_thum_indexd)
         if diff > 0.4:
-            if 0.083 < dist_thum_indexd < 0.093:
+            if 0.07 < dist_thum_indexd < 0.09:
                 if index_tip.x * width > (width / 2):
                     keyboard.tap(Key.right)
 
